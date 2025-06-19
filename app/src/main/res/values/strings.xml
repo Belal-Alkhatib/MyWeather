@@ -1,3 +1,37 @@
 <resources>
     <string name="app_name">MyWeather</string>
+
+    <string name="location_access_error">Unable to access location.</string>
+    <string name="location_permission_denied">Location permission was denied.</string>
+    <string name="unknown_last_location">Could not determine your last known location.</string>
+
+    <string name="no_internet">No internet connection.</string>
+    <string name="server_error">Server error occurred.</string>
+    <string name="timeout_error">Request timed out.</string>
+    <string name="unknown_network_error">Unknown network error occurred.</string>
+    <string name="unexpected_error">An unexpected error occurred.</string>
+    <string name="today">Today</string>
+    <string name="next_7_days">Next 7 days</string>
+
+    <string name="clear_sky">Clear sky</string>
+    <string name="partly_cloudy">Mainly clear, partly cloudy, and overcast</string>
+    <string name="fog">Fog and depositing rime fog</string>
+    <string name="drizzle">Drizzle: Light, moderate, and dense intensity</string>
+    <string name="freezing_drizzle">Freezing Drizzle: Light and dense intensity</string>
+    <string name="rain_description">Rain: Slight, moderate and heavy intensity</string>
+    <string name="freezing_rain">Freezing Rain: Light and heavy intensity</string>
+    <string name="snow">Snow fall: Slight, moderate, and heavy intensity</string>
+    <string name="snow_grains">Snow grains</string>
+    <string name="rain_showers">Rain showers: Slight, moderate, and violent</string>
+    <string name="snow_showers">Snow showers: Slight and heavy</string>
+    <string name="thunderstorm">Thunderstorm: Slight or moderate</string>
+    <string name="thunderstorm_hail">Thunderstorm with slight and heavy hail</string>
+    <string name="unknown_weather">Unknown weather</string>
+    <string name="wind">Wind</string>
+    <string name="humidity">Humidity</string>
+    <string name="rain">Rain</string>
+    <string name="uv_index">UV Index</string>
+    <string name="pressure">Pressure</string>
+    <string name="feels_like">Feels Like</string>
+    <string name="empty" />
 </resources>
