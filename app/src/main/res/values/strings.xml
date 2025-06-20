@@ -1,15 +1,32 @@
 <resources>
     <string name="app_name">MyWeather</string>
 
-    <string name="location_access_error">Unable to access location.</string>
-    <string name="location_permission_denied">Location permission was denied.</string>
-    <string name="unknown_last_location">Could not determine your last known location.</string>
+    <!-- Location Errors -->
+    <string name="location_access_error_title">Location Access Error</string>
+    <string name="location_access_error_description">Unable to access your location. Please check your device settings.</string>
 
-    <string name="no_internet">No internet connection.</string>
-    <string name="server_error">Server error occurred.</string>
-    <string name="timeout_error">Request timed out.</string>
-    <string name="unknown_network_error">Unknown network error occurred.</string>
-    <string name="unexpected_error">An unexpected error occurred.</string>
+    <string name="location_permission_denied_title">Permission Denied</string>
+    <string name="location_permission_denied_description">Location permission was denied. Please enable it in app settings.</string>
+
+    <string name="unknown_last_location_title">Unknown Location</string>
+    <string name="unknown_last_location_description">Could not determine your last known location.</string>
+
+    <!-- Network Errors -->
+    <string name="no_internet_error_title">No Internet Connection</string>
+    <string name="no_internet_error_description">You are offline. Please connect to the internet and try again.</string>
+
+    <string name="server_error_title">Server Error</string>
+    <string name="server_error_description">A server error occurred. Please try again later.</string>
+
+    <string name="timeout_error_title">Request Timed Out</string>
+    <string name="timeout_error_description">The request took too long. Please check your connection and try again.</string>
+
+    <string name="unknown_network_error_title">Unknown Network Error</string>
+    <string name="unknown_network_error_description">An unexpected network issue occurred. Please try again.</string>
+
+    <string name="unexpected_error_title">Unexpected Error</string>
+    <string name="unexpected_error_description">An unexpected error occurred. Please try again later.</string>
+
     <string name="today">Today</string>
     <string name="next_7_days">Next 7 days</string>
 
@@ -34,4 +51,7 @@
     <string name="pressure">Pressure</string>
     <string name="feels_like">Feels Like</string>
     <string name="empty" />
+    <string name="retry">Retry</string>
+    <string name="address_access_error">Address Access Error</string>
+    <string name="unable_to_access_your_address">Unable to access your address. Please check your device settings.</string>
 </resources>

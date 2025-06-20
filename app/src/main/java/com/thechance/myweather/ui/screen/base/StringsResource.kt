@@ -2,17 +2,34 @@ package com.thechance.myweather.ui.screen.base
 
 interface StringsResource {
 
-    val locationAccessErrorMessage: String
-    val locationPermissionDeniedMessage: String
-    val unknownLastLocationMessage: String
+    // Location Errors
+    val locationAccessErrorTitle: String
+    val locationAccessErrorDescription: String
 
+    val locationPermissionDeniedTitle: String
+    val locationPermissionDeniedDescription: String
 
-    val noInternetMessage: String
-    val serverErrorMessage: String
-    val timeoutErrorMessage: String
-    val unknownNetworkErrorMessage: String
+    val unknownLastLocationTitle: String
+    val unknownLastLocationDescription: String
 
-    val unexpectedErrorMessage: String
+    // Network Errors
+    val noInternetErrorTitle: String
+    val noInternetErrorDescription: String
+
+    val serverErrorTitle: String
+    val serverErrorDescription: String
+
+    val timeoutErrorTitle: String
+    val timeoutErrorDescription: String
+
+    val unknownNetworkErrorTitle: String
+    val unknownNetworkErrorDescription: String
+
+    val addressAccessErrorTitle: String
+    val addressAccessErrorDescription: String
+
+    val unexpectedErrorMessageTitle: String
+    val unexpectedErrorMessageDescription: String
 
     val clearSkyWeatherDescription: String
     val partlyCloudyWeatherDescription: String
