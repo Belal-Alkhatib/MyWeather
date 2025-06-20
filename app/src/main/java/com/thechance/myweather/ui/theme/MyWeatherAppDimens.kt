@@ -13,6 +13,7 @@ object MyWeatherAppDimens {
     val spacing16 = 16.dp
     val spacing24 = 24.dp
     val spacing26 = 26.dp
+    val spacing32 = 32.dp
     val spacing48 = 48.dp
     val spacing62 = 62.dp
 
@@ -20,7 +21,6 @@ object MyWeatherAppDimens {
     val borderWidth = 1.dp
 
     val radius24 = 24.dp
-    val radius20 = 20.dp
 
     val imageSize45 = 45.dp
     val imageHeight58 = 58.dp
@@ -33,6 +33,8 @@ object MyWeatherAppDimens {
 
     val blurRadius128 = 128.dp
     val blurRadius16 = 16.dp
+
+    val buttonHeight = 56.dp
 
 
 }

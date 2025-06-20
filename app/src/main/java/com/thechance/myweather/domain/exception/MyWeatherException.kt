@@ -1,6 +1,5 @@
 package com.thechance.myweather.domain.exception
 
-
 sealed class MyWeatherException: Exception() {
 
     sealed class NetworkException : MyWeatherException() {
@@ -14,6 +13,7 @@ sealed class MyWeatherException: Exception() {
     sealed class LocationException: MyWeatherException() {
         data object UnknownLastLocationException: LocationException()
         data object LocationAccessException: LocationException()
+        data object AddressAccessException: LocationException()
         data object LocationPermissionDeniedException: LocationException()
     }
 }

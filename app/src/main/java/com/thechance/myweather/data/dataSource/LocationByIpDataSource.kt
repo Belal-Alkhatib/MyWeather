@@ -1,11 +1,13 @@
 package com.thechance.myweather.data.dataSource
 
+import android.util.Log
 import com.thechance.myweather.data.repository.dataSource.LocationDataSource
 import com.thechance.myweather.data.response.LocationResponse
 import com.thechance.myweather.data.utils.getClassByResponse
 import com.thechance.myweather.data.utils.safeApiCall
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
+import io.ktor.client.statement.bodyAsText
 import kotlinx.serialization.json.Json
 
 class LocationByIpDataSource(
@@ -18,6 +20,9 @@ class LocationByIpDataSource(
             safeApiCall {
                 client.get(baseUrl)
             }
+
+        Log.e("bk", "response: ${response.bodyAsText()}")
+
         return getClassByResponse<LocationResponse>(response = response, json = json)
     }
 }

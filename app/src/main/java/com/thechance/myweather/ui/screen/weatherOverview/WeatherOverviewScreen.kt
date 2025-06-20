@@ -1,5 +1,6 @@
 package com.thechance.myweather.ui.screen.weatherOverview
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
@@ -48,6 +49,7 @@ import com.thechance.myweather.R
 import com.thechance.myweather.ui.screen.weatherOverview.composable.BlurredBackgroundBox
 import com.thechance.myweather.ui.screen.weatherOverview.composable.BorderedCard
 import com.thechance.myweather.ui.screen.weatherOverview.composable.DayInfoCard
+import com.thechance.myweather.ui.screen.weatherOverview.composable.ErrorMessageScreen
 import com.thechance.myweather.ui.screen.weatherOverview.composable.HourInfoCard
 import com.thechance.myweather.ui.screen.weatherOverview.composable.MyWeatherCircularProgressIndicator
 import com.thechance.myweather.ui.screen.weatherOverview.composable.SpacerVertically
@@ -65,6 +67,7 @@ import com.thechance.myweather.ui.theme.MyWeatherAppTheme.colors
 import com.thechance.myweather.ui.theme.MyWeatherAppTheme.dimensions
 import com.thechance.myweather.ui.theme.MyWeatherTheme
 import org.koin.androidx.compose.koinViewModel
+import org.koin.androidx.compose.viewModel
 
 @Composable
 fun HomeScreen(
@@ -75,20 +78,35 @@ fun HomeScreen(
 
     MyWeatherTheme(isDay = state.isDay) {
 
-        AnimatedVisibility (
+        AnimatedVisibility(
             visible = state.baseUiState.isLoading,
-            enter = fadeIn(tween()) ,
+            enter = fadeIn(tween()),
             exit = fadeOut(tween(500)) + scaleOut(),
             label = "loading screen"
-        ){
+        ) {
             MyWeatherCircularProgressIndicator(modifier = Modifier.statusBarsPadding())
         }
-        AnimatedVisibility (
-            visible = !state.baseUiState.isLoading && state.baseUiState.errorMessage.isNullOrEmpty(),
-            enter = fadeIn(tween(900)) + scaleIn(animationSpec = spring(stiffness = Spring.StiffnessMedium)) ,
+
+        AnimatedVisibility(
+            visible = state.baseUiState.errorMessage.title != null,
+            enter = scaleIn(),
+            exit = scaleOut(),
+            label = "error screen"
+        ) {
+            ErrorMessageScreen(
+                title = state.baseUiState.errorMessage.title
+                    ?: stringResource(R.string.unexpected_error_title),
+                description = state.baseUiState.errorMessage.description,
+                onRetryClick = viewModel::onRetryClick
+            )
+        }
+
+        AnimatedVisibility(
+            visible = !state.baseUiState.isLoading && state.baseUiState.errorMessage.title.isNullOrEmpty(),
+            enter = fadeIn(tween(900)) + scaleIn(animationSpec = spring(stiffness = Spring.StiffnessMedium)),
             exit = fadeOut(tween()),
             label = "home screen content"
-        ){
+        ) {
             HomeScreenContent(modifier = modifier, state = state)
         }
     }
@@ -104,7 +122,9 @@ private fun HomeScreenContent(modifier: Modifier = Modifier, state: WeatherOverv
     }
 
     LazyColumn(
-        modifier = modifier.fillMaxSize().background(brush = colors.background.backgroundBrush),
+        modifier = modifier
+            .fillMaxSize()
+            .background(brush = colors.background.backgroundBrush),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top,
         contentPadding = PaddingValues(top = dimensions.spacing48, bottom = dimensions.spacing24),
@@ -149,7 +169,7 @@ private fun HomeScreenContent(modifier: Modifier = Modifier, state: WeatherOverv
                     horizontalArrangement = Arrangement.spacedBy(dimensions.spacing12),
                     contentPadding = PaddingValues(horizontal = dimensions.spacing12)
                 ) {
-                    items(items = state.todayWeather,) { weather ->
+                    items(items = state.todayWeather) { weather ->
                         HourInfoCard(
                             temperature = weather.temperature,
                             hour = weather.hour,
@@ -221,7 +241,9 @@ private fun CurrentWeatherSection(
         animationSpec = tween(700)
     )
 
-    val start = -1f; val center = 0f; val end = 1f
+    val start = -1f;
+    val center = 0f;
+    val end = 1f
 
     val animatedImageAlignmentHorizontally by
     animateFloatAsState(
@@ -265,9 +287,11 @@ private fun CurrentWeatherSection(
                 blurredBackgroundBoxSize = animatedImageHeight,
                 blurredBackgroundBoxSizePlus = dimensions.spacing12,
                 blurRadius = dimensions.blurRadius128
-            ){
+            ) {
                 Image(
-                    modifier = Modifier.height(animatedImageHeight).width(animatedImageWidth),
+                    modifier = Modifier
+                        .height(animatedImageHeight)
+                        .width(animatedImageWidth),
                     painter = painterResource(
                         getIconResourceByWeatherCode(currentWeatherState.imageCode, isDay)
                     ),
@@ -296,7 +320,9 @@ private fun CurrentWeatherSection(
             )
 
             Text(
-                modifier = Modifier.padding(bottom = dimensions.spacing12).fillMaxWidth(.5f),
+                modifier = Modifier
+                    .padding(bottom = dimensions.spacing12)
+                    .fillMaxWidth(.5f),
                 text = currentWeatherState.description,
                 style = MaterialTheme.typography.bodyLarge,
                 color = colors.text.tertiaryText,
