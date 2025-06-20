@@ -1,5 +1,6 @@
 package com.thechance.myweather.domain.entity
 
+import com.thechance.myweather.data.utils.toHourString
 import com.thechance.myweather.ui.screen.weatherOverview.stateHolder.TodayWeatherItemUiState
 import java.time.LocalTime
 
@@ -14,6 +15,6 @@ fun HourlyForecast.toTodayWeatherItemUiState(): TodayWeatherItemUiState {
     return TodayWeatherItemUiState(
         imageCode = this.weatherCode,
         temperature = WeatherValue(this.temperature.value.toInt(), this.temperature.unit),
-        hour = time.toString()
+        hour = time.toHourString()
     )
 }

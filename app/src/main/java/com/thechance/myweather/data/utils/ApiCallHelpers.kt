@@ -1,6 +1,5 @@
 package com.thechance.myweather.data.utils
 
-import android.util.Log
 import com.thechance.myweather.domain.exception.MyWeatherException
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
@@ -18,7 +17,7 @@ inline fun safeApiCall(apiCall: () -> HttpResponse): HttpResponse {
         throw MyWeatherException.NetworkException.TimeoutException
     } catch (_: SSLException) {
         throw MyWeatherException.NetworkException.ServerException
-    }  catch (e: Exception) {
+    }  catch (_: Exception) {
         throw MyWeatherException.NetworkException.UnknownNetworkException
     }
 }
