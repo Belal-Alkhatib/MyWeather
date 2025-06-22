@@ -1,10 +1,10 @@
-package com.thechance.myweather.data.response.dilayWeather
+package com.thechance.myweather.data.response.weather.dilayWeather
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class DailyWeatherUnitsResponse(
+data class DailyWeatherUnitsDto(
     @SerialName("temperature_2m_max")
     val maxTemperature: String? = null,
     @SerialName("temperature_2m_min")

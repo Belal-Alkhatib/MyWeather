@@ -1,10 +1,10 @@
-package com.thechance.myweather.data.response.hourlyWeather
+package com.thechance.myweather.data.response.weather.hourlyWeather
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class HourlyWeatherUnitsResponse(
+data class HourlyWeatherUnitsDto(
     @SerialName("temperature_2m")
     val temperature: String? = null,
     @SerialName("time")

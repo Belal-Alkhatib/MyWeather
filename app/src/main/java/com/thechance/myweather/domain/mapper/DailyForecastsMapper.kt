@@ -1,28 +1,13 @@
-package com.thechance.myweather.data.response.dilayWeather
+package com.thechance.myweather.domain.mapper
 
+import com.thechance.myweather.data.response.weather.dilayWeather.DailyWeatherResponse
+import com.thechance.myweather.data.response.weather.dilayWeather.DailyWeatherUnitsDto
 import com.thechance.myweather.data.utils.toLocalDate
 import com.thechance.myweather.domain.entity.DailyForecast
-import com.thechance.myweather.domain.entity.WeatherUnit
 import com.thechance.myweather.domain.entity.WeatherValue
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
-@Serializable
-data class DailyWeatherResponse(
-    @SerialName("temperature_2m_max")
-    val maxTemperatures: List<Double?>? = null,
-    @SerialName("temperature_2m_min")
-    val minTemperatures: List<Double?>? = null,
-    @SerialName("time")
-    val times: List<String?>? = null,
-    @SerialName("uv_index_max")
-    val maxUvIndexes: List<Double?>? = null,
-    @SerialName("weather_code")
-    val weatherCodes: List<Int?>? = null
-)
-
-fun DailyWeatherResponse.toDailyForecasts(units: DailyWeatherUnitsResponse?): List<DailyForecast> {
-    val temperatureUnit = WeatherUnit.fromSymbol(units?.maxTemperature.orEmpty())
+fun DailyWeatherResponse.toDailyForecasts(units: DailyWeatherUnitsDto?): List<DailyForecast> {
+    val temperatureUnit = units?.maxTemperature.orEmpty()
 
     return this.times?.mapIndexedNotNull { index, date ->
         val date = date?.toLocalDate() ?: return@mapIndexedNotNull null

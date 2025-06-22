@@ -1,28 +1,28 @@
-package com.thechance.myweather.data.response.currentWeather
+package com.thechance.myweather.data.response.weather.currentWeather
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CurrentWeatherUnitsResponse(
+data class CurrentWeatherResponse(
     @SerialName("apparent_temperature")
-    val apparentTemperature: String? = null,
+    val apparentTemperature: Double? = null,
     @SerialName("interval")
-    val interval: String? = null,
+    val interval: Int? = null,
     @SerialName("is_day")
-    val isDay: String? = null,
+    val isDay: Int? = null,
     @SerialName("pressure_msl")
-    val pressure: String? = null,
+    val pressure: Double? = null,
     @SerialName("rain")
-    val rain: String? = null,
+    val rain: Double? = null,
     @SerialName("relative_humidity_2m")
-    val relativeHumidity: String? = null,
+    val relativeHumidity: Int? = null,
     @SerialName("temperature_2m")
-    val temperature: String? = null,
+    val temperature: Double? = null,
     @SerialName("time")
     val time: String? = null,
     @SerialName("weather_code")
-    val weatherCode: String? = null,
+    val weatherCode: Int? = null,
     @SerialName("wind_speed_10m")
-    val windSpeed: String? = null
+    val windSpeed: Double? = null
 )
