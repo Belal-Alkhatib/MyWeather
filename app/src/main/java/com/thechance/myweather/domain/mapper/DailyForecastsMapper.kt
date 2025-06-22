@@ -5,6 +5,7 @@ import com.thechance.myweather.data.response.weather.dilayWeather.DailyWeatherUn
 import com.thechance.myweather.data.utils.toLocalDate
 import com.thechance.myweather.domain.entity.DailyForecast
 import com.thechance.myweather.domain.entity.WeatherValue
+import kotlinx.datetime.toKotlinLocalDate
 
 fun DailyWeatherResponse.toDailyForecasts(units: DailyWeatherUnitsDto?): List<DailyForecast> {
     val temperatureUnit = units?.maxTemperature.orEmpty()
@@ -16,7 +17,7 @@ fun DailyWeatherResponse.toDailyForecasts(units: DailyWeatherUnitsDto?): List<Da
         val lowTemp = this.minTemperatures?.getOrNull(index) ?: return@mapIndexedNotNull null
 
         DailyForecast(
-            date = date,
+            date = date.toKotlinLocalDate(),
             weatherCode = weatherCodeValue,
             highTemperature = WeatherValue(highTemp, temperatureUnit),
             lowTemperature = WeatherValue(lowTemp, temperatureUnit)

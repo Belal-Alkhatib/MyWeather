@@ -1,6 +1,7 @@
 package com.thechance.myweather.domain.entity
 
-import java.time.LocalTime
+import kotlinx.datetime.LocalTime
+
 
 data class HourlyForecast(
     val time: LocalTime,
