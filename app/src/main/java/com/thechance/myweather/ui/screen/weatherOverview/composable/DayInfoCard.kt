@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,7 +20,6 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.thechance.myweather.R
-import com.thechance.myweather.domain.entity.WeatherUnit
 import com.thechance.myweather.domain.entity.WeatherValue
 import com.thechance.myweather.ui.theme.MyWeatherAppTheme.colors
 import com.thechance.myweather.ui.theme.MyWeatherAppTheme.dimensions
@@ -27,10 +27,11 @@ import com.thechance.myweather.ui.theme.MyWeatherAppTheme.dimensions
 
 @Composable
 fun DayInfoCard(
-    day: String, weatherImage: Painter,
-    todayHighTemperature: WeatherValue<Int>,
-    todayLowTemperature: WeatherValue<Int>,
+    day: String,
+    weatherImage: Painter,
     modifier: Modifier = Modifier,
+    todayHighTemperature: WeatherValue<String>,
+    todayLowTemperature: WeatherValue<String>,
     isBottomDividerLineVisible: Boolean = true
 ) {
 
@@ -74,7 +75,7 @@ fun DayInfoCard(
                 lowTemperature = todayLowTemperature,
                 contentColor = colors.text.secondaryText,
                 contentTextStyle = MaterialTheme.typography.bodySmall,
-                dividerPadding = Modifier.padding(
+                dividerPadding = PaddingValues(
                     vertical = dimensions.spacing1,
                     horizontal = dimensions.spacing4
                 )
@@ -83,20 +84,24 @@ fun DayInfoCard(
 
         AnimatedVisibility(isBottomDividerLineVisible) {
             DividerLine(
-                modifier = modifier.fillMaxWidth().height(dimensions.dividerLineWidth),
+                modifier = modifier
+                    .fillMaxWidth()
+                    .height(dimensions.dividerLineWidth),
                 color = colors.border
             )
         }
     }
 }
 
-@Preview
+@Preview(showBackground = true, showSystemUi = true,
+    device = "spec:width=800px,height=800px,dpi=240"
+)
 @Composable
 private fun DayInfoCardPreview() {
     DayInfoCard(
         day = "Monday",
         weatherImage = painterResource(R.drawable.image_day_code_45),
-        todayHighTemperature = WeatherValue(32, WeatherUnit.Celsius),
-        todayLowTemperature = WeatherValue(20, WeatherUnit.Celsius),
+        todayHighTemperature = WeatherValue("32", "C"),
+        todayLowTemperature = WeatherValue("20", "C"),
     )
 }

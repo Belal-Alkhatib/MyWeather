@@ -1,6 +1,5 @@
 package com.thechance.myweather.ui.screen.weatherOverview.composable
 
-import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,14 +16,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.thechance.myweather.R
-import com.thechance.myweather.ui.MainActivity
 import com.thechance.myweather.ui.theme.MyWeatherAppTheme.colors
 import com.thechance.myweather.ui.theme.MyWeatherAppTheme.dimensions
 import com.thechance.myweather.ui.theme.MyWeatherTheme
@@ -37,7 +35,6 @@ fun ErrorMessageScreen(
     modifier: Modifier = Modifier,
     errorImagePainter: Painter = painterResource(R.drawable.default_error_image)
 ) {
-
     MyWeatherTheme(isDay = true) {
 
         Column(
@@ -65,21 +62,20 @@ fun ErrorMessageScreen(
             )
 
             Text(
-                modifier = Modifier.fillMaxWidth(.8f),
+                modifier = Modifier.fillMaxWidth(.8f).padding(bottom = dimensions.spacing32),
                 text = description,
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.bodyMedium,
                 color = colors.text.tertiaryText
             )
 
-            SpacerVertically(dimensions.spacing32)
-
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(dimensions.buttonHeight)
-                    .clickable { onRetryClick() }
-                    .background(colors.skyblue, shape = RoundedCornerShape(dimensions.radius24)),
+                    .background(colors.skyblue, shape = RoundedCornerShape(dimensions.radius24))
+                    .clip(RoundedCornerShape(dimensions.radius24))
+                    .clickable { onRetryClick() },
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {

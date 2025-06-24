@@ -1,6 +1,5 @@
 package com.thechance.myweather.ui.screen.weatherOverview
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
@@ -55,19 +54,16 @@ import com.thechance.myweather.ui.screen.weatherOverview.composable.MyWeatherCir
 import com.thechance.myweather.ui.screen.weatherOverview.composable.SpacerVertically
 import com.thechance.myweather.ui.screen.weatherOverview.composable.TemperatureRange
 import com.thechance.myweather.ui.screen.weatherOverview.composable.WeatherDetailCard
-import com.thechance.myweather.ui.screen.weatherOverview.stateHolder.CurrentWeatherInfoUiState
-import com.thechance.myweather.ui.screen.weatherOverview.stateHolder.WeatherDetailItemUiState
-import com.thechance.myweather.ui.screen.weatherOverview.stateHolder.WeatherOverviewUiState
-import com.thechance.myweather.ui.screen.weatherOverview.stateHolder.WeatherOverviewViewModel
-import com.thechance.myweather.ui.screen.weatherOverview.stateHolder.WeekWeatherItemUiState
-import com.thechance.myweather.ui.screen.weatherOverview.util.getIconResourceByWeatherCode
-import com.thechance.myweather.ui.screen.weatherOverview.util.getWeatherDetailIconResByTitle
-import com.thechance.myweather.ui.screen.weatherOverview.util.getWeatherTitleResourceByWeatherTitle
+import com.thechance.myweather.ui.screen.mapper.getErrorDescriptionResource
+import com.thechance.myweather.ui.screen.mapper.getErrorTitleResource
+import com.thechance.myweather.ui.screen.mapper.getWeatherDescriptionByWeatherType
+import com.thechance.myweather.ui.screen.mapper.getWeatherIconByWeatherType
+import com.thechance.myweather.ui.screen.mapper.getWeatherDetailIconResByTitle
+import com.thechance.myweather.ui.screen.mapper.getWeatherTitleResourceByWeatherTitle
 import com.thechance.myweather.ui.theme.MyWeatherAppTheme.colors
 import com.thechance.myweather.ui.theme.MyWeatherAppTheme.dimensions
 import com.thechance.myweather.ui.theme.MyWeatherTheme
 import org.koin.androidx.compose.koinViewModel
-import org.koin.androidx.compose.viewModel
 
 @Composable
 fun HomeScreen(
@@ -79,7 +75,7 @@ fun HomeScreen(
     MyWeatherTheme(isDay = state.isDay) {
 
         AnimatedVisibility(
-            visible = state.baseUiState.isLoading,
+            visible = state.isLoading,
             enter = fadeIn(tween()),
             exit = fadeOut(tween(500)) + scaleOut(),
             label = "loading screen"
@@ -88,21 +84,26 @@ fun HomeScreen(
         }
 
         AnimatedVisibility(
-            visible = state.baseUiState.errorMessage.title != null,
+            visible = state.hasError(),
             enter = scaleIn(),
             exit = scaleOut(),
             label = "error screen"
         ) {
             ErrorMessageScreen(
-                title = state.baseUiState.errorMessage.title
-                    ?: stringResource(R.string.unexpected_error_title),
-                description = state.baseUiState.errorMessage.description,
+                title = stringResource(
+                    state.errorTypeUiState?.getErrorTitleResource()
+                        ?: R.string.unexpected_error_title
+                ),
+                description = stringResource(
+                    state.errorTypeUiState?.getErrorDescriptionResource()
+                        ?: R.string.unexpected_error_description
+                ),
                 onRetryClick = viewModel::onRetryClick
             )
         }
 
         AnimatedVisibility(
-            visible = !state.baseUiState.isLoading && state.baseUiState.errorMessage.title.isNullOrEmpty(),
+            visible = state.notLoadingAndHasNotError(),
             enter = fadeIn(tween(900)) + scaleIn(animationSpec = spring(stiffness = Spring.StiffnessMedium)),
             exit = fadeOut(tween()),
             label = "home screen content"
@@ -174,10 +175,7 @@ private fun HomeScreenContent(modifier: Modifier = Modifier, state: WeatherOverv
                             temperature = weather.temperature,
                             hour = weather.hour,
                             weatherIconPainter = painterResource(
-                                getIconResourceByWeatherCode(
-                                    weather.imageCode,
-                                    state.isDay
-                                )
+                                getWeatherIconByWeatherType(weather.weatherType, state.isDay)
                             )
                         )
                     }
@@ -293,9 +291,9 @@ private fun CurrentWeatherSection(
                         .height(animatedImageHeight)
                         .width(animatedImageWidth),
                     painter = painterResource(
-                        getIconResourceByWeatherCode(currentWeatherState.imageCode, isDay)
+                        getWeatherIconByWeatherType(currentWeatherState.weatherType, isDay)
                     ),
-                    contentDescription = currentWeatherState.description,
+                    contentDescription = currentWeatherState.description.name,
                     alignment = Alignment.CenterStart
                 )
             }
@@ -314,7 +312,7 @@ private fun CurrentWeatherSection(
         ) {
             Text(
                 modifier = Modifier.padding(top = dimensions.spacing12),
-                text = "${currentWeatherState.temperature.value}${currentWeatherState.temperature.unit.symbol}",
+                text = "${currentWeatherState.temperature.value}${currentWeatherState.temperature.unit}",
                 style = MaterialTheme.typography.displayLarge,
                 color = colors.text.secondaryText
             )
@@ -323,7 +321,7 @@ private fun CurrentWeatherSection(
                 modifier = Modifier
                     .padding(bottom = dimensions.spacing12)
                     .fillMaxWidth(.5f),
-                text = currentWeatherState.description,
+                text = stringResource(getWeatherDescriptionByWeatherType(currentWeatherState.description)),
                 style = MaterialTheme.typography.bodyLarge,
                 color = colors.text.tertiaryText,
                 maxLines = 2,
@@ -394,7 +392,7 @@ private fun Next7DaysCard(
             DayInfoCard(
                 day = todayWeather.dayOfWeek,
                 weatherImage = painterResource(
-                    getIconResourceByWeatherCode(code = todayWeather.imageCode, isDay = isDay)
+                    getWeatherIconByWeatherType(todayWeather.weatherType, isDay)
                 ),
                 todayHighTemperature = todayWeather.highTemperature,
                 todayLowTemperature = todayWeather.lowTemperature,

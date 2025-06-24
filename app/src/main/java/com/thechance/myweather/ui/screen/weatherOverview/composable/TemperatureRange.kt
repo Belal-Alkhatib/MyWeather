@@ -2,6 +2,7 @@ package com.thechance.myweather.ui.screen.weatherOverview.composable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -13,14 +14,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.Modifier.Companion.then
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.thechance.myweather.R
-import com.thechance.myweather.domain.entity.WeatherUnit
 import com.thechance.myweather.domain.entity.WeatherValue
 import com.thechance.myweather.ui.theme.MyWeatherAppTheme.colors
 import com.thechance.myweather.ui.theme.MyWeatherAppTheme.dimensions
@@ -28,21 +27,23 @@ import com.thechance.myweather.ui.theme.MyWeatherTheme
 
 @Composable
 fun TemperatureRange(
-    highTemperature: WeatherValue<Int>,
-    lowTemperature: WeatherValue<Int>,
+    highTemperature: WeatherValue<String>,
+    lowTemperature: WeatherValue<String>,
     modifier: Modifier = Modifier,
     contentColor: Color = colors.text.tertiaryText,
-    contentTextStyle: TextStyle= MaterialTheme.typography.bodyLarge,
+    contentTextStyle: TextStyle = MaterialTheme.typography.bodyLarge,
     hasABackground: Boolean = false,
-    dividerPadding: Modifier = Modifier.padding(
+    dividerPadding: PaddingValues = PaddingValues(
         vertical = dimensions.spacing2,
         horizontal = dimensions.spacing8
     )
 ) {
-    val background = if (hasABackground) Modifier.background(
-        color = colors.background.onBackgroundSecondary,
-        shape = RoundedCornerShape(percent = 50)
-    ).padding(horizontal = dimensions.spacing24, vertical = dimensions.spacing8) else Modifier
+    val background = if (hasABackground) Modifier
+        .background(
+            color = colors.background.onBackgroundSecondary,
+            shape = RoundedCornerShape(percent = 50)
+        )
+        .padding(horizontal = dimensions.spacing24, vertical = dimensions.spacing8) else Modifier
 
     Row(
         modifier
@@ -52,24 +53,33 @@ fun TemperatureRange(
         verticalAlignment = Alignment.CenterVertically,
     ) {
 
-        ArrowIcon(tint = contentColor, contentDescription = "high temperature is ${highTemperature.value}")
-
-        Text(
-            modifier = Modifier.padding(start = dimensions.spacing8),
-            text = "${highTemperature.value}${highTemperature.unit.symbol}",
-            style = contentTextStyle,
-            color = contentColor
+        ArrowIcon(
+            tint = contentColor,
+            contentDescription = "high temperature is ${highTemperature.value}"
         )
 
-        DividerLine(modifier = then(dividerPadding))
+        Text(
+            modifier = Modifier.padding(start = dimensions.spacing8),
+            text = highTemperature.value + highTemperature.unit,
+            style = contentTextStyle,
+            color = contentColor,
+            maxLines = 1
+        )
 
-        ArrowIcon(modifier = Modifier.rotate(180f), tint = contentColor, contentDescription = "low temperature is ${lowTemperature.value}")
+        DividerLine(modifier = Modifier.padding(paddingValues = dividerPadding))
+
+        ArrowIcon(
+            modifier = Modifier.rotate(180f),
+            tint = contentColor,
+            contentDescription = "low temperature is ${lowTemperature.value}"
+        )
 
         Text(
             modifier = Modifier.padding(start = dimensions.spacing8),
-            text = "${lowTemperature.value}${lowTemperature.unit.symbol}",
+            text = lowTemperature.value + lowTemperature.unit,
             style = contentTextStyle,
-            color = contentColor
+            color = contentColor,
+            maxLines = 1
         )
     }
 }
@@ -84,14 +94,16 @@ private fun ArrowIcon(tint: Color, contentDescription: String, modifier: Modifie
     )
 }
 
-@Preview(showBackground = false, backgroundColor = 0xFF673AB7, showSystemUi = true)
+@Preview(showBackground = false, backgroundColor = 0xFF673AB7, showSystemUi = true,
+    device = "id:Nexus S"
+)
 @Composable
 private fun TemperatureRangeRowPreview() {
     MyWeatherTheme(isDay = false) {
         TemperatureRange(
             hasABackground = false,
-            highTemperature = WeatherValue(32, WeatherUnit.Celsius),
-            lowTemperature = WeatherValue(20, WeatherUnit.Celsius),
+            highTemperature = WeatherValue("32", "C"),
+            lowTemperature = WeatherValue("20", "C"),
         )
     }
 }

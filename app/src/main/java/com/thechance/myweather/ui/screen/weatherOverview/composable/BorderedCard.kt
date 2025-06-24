@@ -15,7 +15,10 @@ import com.thechance.myweather.ui.theme.MyWeatherAppTheme.dimensions
 import com.thechance.myweather.ui.theme.MyWeatherAppTheme.colors
 
 @Composable
-fun BorderedCard(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> Unit) {
+fun BorderedCard(
+    modifier: Modifier = Modifier,
+    content: @Composable ColumnScope.() -> Unit
+) {
     val shape = RoundedCornerShape(dimensions.radius24)
 
     Column(
@@ -23,7 +26,7 @@ fun BorderedCard(modifier: Modifier = Modifier, content: @Composable ColumnScope
             .fillMaxWidth()
             .clip(shape)
             .background(color = colors.background.onBackgroundPrimary, shape = shape)
-            .border(width = dimensions.borderWidth, color = colors.border, shape = RoundedCornerShape(dimensions.radius24)),
+            .border(width = dimensions.borderWidth, color = colors.border, shape = shape),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

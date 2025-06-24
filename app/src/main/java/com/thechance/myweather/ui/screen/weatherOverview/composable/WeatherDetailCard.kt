@@ -10,7 +10,6 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.thechance.myweather.R
-import com.thechance.myweather.domain.entity.WeatherUnit
 import com.thechance.myweather.domain.entity.WeatherValue
 import com.thechance.myweather.ui.theme.MyWeatherAppTheme
 import com.thechance.myweather.ui.theme.MyWeatherTheme
@@ -36,7 +35,7 @@ fun WeatherDetailCard(
 
         Text(
             modifier = Modifier.padding(top = dimensions.spacing8, bottom = dimensions.spacing2),
-            text = "${value.value}${value.unit.symbol}",
+            text = "${value.value}${value.unit}",
             style = MaterialTheme.typography.titleLarge,
             color = colors.text.primaryText
         )
@@ -56,7 +55,7 @@ private fun WeatherDetailCardPreview() {
     MyWeatherTheme(isDay = false) {
         WeatherDetailCard(
             icon = painterResource(R.drawable.icon_fast_wind),
-            value = WeatherValue(14, WeatherUnit.KmPerHour),
+            value = WeatherValue(14, "Km"),
             label = "Wind",
         )
     }

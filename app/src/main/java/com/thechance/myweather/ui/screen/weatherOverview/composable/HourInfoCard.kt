@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.thechance.myweather.R
-import com.thechance.myweather.domain.entity.WeatherUnit
 import com.thechance.myweather.domain.entity.WeatherValue
 import com.thechance.myweather.ui.theme.MyWeatherAppTheme.colors
 import com.thechance.myweather.ui.theme.MyWeatherAppTheme.dimensions
@@ -46,7 +45,7 @@ fun HourInfoCard(
                     end = dimensions.spacing26,
                     top = dimensions.spacing62
                 ),
-                text = "${temperature.value}${temperature.unit.symbol}",
+                text = "${temperature.value}${temperature.unit}",
                 style = MaterialTheme.typography.titleLarge,
                 color = colors.text.primaryText
             )
@@ -84,7 +83,7 @@ fun HourInfoCard(
 private fun HourInfoCardPreview() {
     HourInfoCard(
         weatherIconPainter = painterResource(R.drawable.image_day_code_1),
-        temperature = WeatherValue(0, WeatherUnit.Celsius),
+        temperature = WeatherValue(0, "C"),
         hour = "11:00"
     )
 }
