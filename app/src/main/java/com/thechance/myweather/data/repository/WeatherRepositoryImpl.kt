@@ -1,9 +1,9 @@
 package com.thechance.myweather.data.repository
 
 import com.thechance.myweather.data.repository.dataSource.WeatherDataSource
-import com.thechance.myweather.data.response.toWeatherOverview
 import com.thechance.myweather.domain.entity.Location
 import com.thechance.myweather.domain.entity.WeatherOverview
+import com.thechance.myweather.domain.mapper.toWeatherOverview
 import com.thechance.myweather.domain.repository.WeatherRepository
 
 class WeatherRepositoryImpl(

@@ -1,7 +1,7 @@
-package com.thechance.myweather.ui.screen.weatherOverview.util
+package com.thechance.myweather.ui.screen.mapper
 
 import androidx.annotation.StringRes
-import com.thechance.myweather.ui.screen.weatherOverview.stateHolder.WeatherTitle
+import com.thechance.myweather.ui.screen.weatherOverview.WeatherTitle
 import com.thechance.myweather.R
 
 @StringRes

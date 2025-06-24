@@ -12,13 +12,13 @@ fun DailyWeatherResponse.toDailyForecasts(units: DailyWeatherUnitsDto?): List<Da
 
     return this.times?.mapIndexedNotNull { index, date ->
         val date = date?.toLocalDate() ?: return@mapIndexedNotNull null
-        val weatherCodeValue = this.weatherCodes?.getOrNull(index) ?: return@mapIndexedNotNull null
+        val weatherType = this.weatherCodes?.getOrNull(index)?.toWeatherType() ?: return@mapIndexedNotNull null
         val highTemp = this.maxTemperatures?.getOrNull(index) ?: return@mapIndexedNotNull null
         val lowTemp = this.minTemperatures?.getOrNull(index) ?: return@mapIndexedNotNull null
 
         DailyForecast(
             date = date.toKotlinLocalDate(),
-            weatherCode = weatherCodeValue,
+            weatherType = weatherType,
             highTemperature = WeatherValue(highTemp, temperatureUnit),
             lowTemperature = WeatherValue(lowTemp, temperatureUnit)
         )

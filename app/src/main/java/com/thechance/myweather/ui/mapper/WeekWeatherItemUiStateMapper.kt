@@ -7,8 +7,8 @@ import com.thechance.myweather.ui.screen.weatherOverview.WeekWeatherItemUiState
 fun DailyForecast.toWeekWeatherItemUiState(): WeekWeatherItemUiState {
     return WeekWeatherItemUiState(
         dayOfWeek = this.date.dayOfWeek.toString(),
-        imageCode = this.weatherCode,
-        highTemperature = WeatherValue(value = this.highTemperature.value.toInt(), this.highTemperature.unit),
-        lowTemperature = WeatherValue(value = this.lowTemperature.value.toInt(), this.lowTemperature.unit)
+        weatherType = this.weatherType,
+        highTemperature = WeatherValue(value = this.highTemperature.value.toString(), this.highTemperature.unit),
+        lowTemperature = WeatherValue(value = this.lowTemperature.value.toString(), this.lowTemperature.unit)
     )
 }

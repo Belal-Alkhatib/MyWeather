@@ -5,7 +5,7 @@ data class CurrentWeather(
     val cityName: String,
     val temperature: WeatherValue<Double>,
     val feelsLike: WeatherValue<Double>,
-    val weatherCode: Int,
+    val weatherType: WeatherType,
     val humidity: WeatherValue<Int>,
     val rain: WeatherValue<Double>,
     val uvIndex: WeatherValue<Double>,

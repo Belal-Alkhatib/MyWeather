@@ -11,12 +11,12 @@ fun HourlyWeatherResponse.toHourlyForecasts(units: HourlyWeatherUnitsDto?): List
     return times?.mapIndexedNotNull { index, time ->
         val localTime = time?.toLocalTime() ?: return@mapIndexedNotNull null
         val temperature = temperatures?.getOrNull(index) ?: return@mapIndexedNotNull null
-        val weatherCode = weatherCode?.getOrNull(index) ?: return@mapIndexedNotNull null
+        val weatherType = weatherCode?.getOrNull(index)?.toWeatherType() ?: return@mapIndexedNotNull null
 
         HourlyForecast(
             time = localTime.toKotlinLocalTime(),
             temperature = WeatherValue(temperature, units?.temperature.orEmpty()),
-            weatherCode = weatherCode
+            weatherType = weatherType
         )
     } ?: emptyList()
 }

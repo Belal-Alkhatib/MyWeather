@@ -3,6 +3,7 @@ package com.thechance.myweather.domain.mapper
 import com.thechance.myweather.data.response.weather.WeatherResponse
 import com.thechance.myweather.domain.entity.CurrentWeather
 import com.thechance.myweather.domain.entity.WeatherOverview
+import com.thechance.myweather.domain.entity.WeatherType
 import com.thechance.myweather.domain.entity.WeatherValue
 
 fun WeatherResponse.toWeatherOverview(cityName: String): WeatherOverview {
@@ -11,7 +12,7 @@ fun WeatherResponse.toWeatherOverview(cityName: String): WeatherOverview {
         cityName = cityName,
         temperature = WeatherValue(0.0, ""),
         feelsLike = WeatherValue(0.0, ""),
-        weatherCode = 0,
+        weatherType = WeatherType.Unknown,
         humidity = WeatherValue(0, ""),
         rain = WeatherValue(0.0, ""),
         uvIndex = WeatherValue(0.0, ""),

@@ -1,0 +1,33 @@
+package com.thechance.myweather.domain.entity
+
+enum class WeatherType {
+    ClearSky,
+    MainlyClear,
+    PartlyCloudy,
+    Overcast,
+    Fog,
+    DepositingRimeFog,
+    LightDrizzle,
+    ModerateDrizzle,
+    DenseDrizzle,
+    LightFreezingDrizzle,
+    DenseFreezingDrizzle,
+    SlightRain,
+    ModerateRain,
+    HeavyRain,
+    LightFreezingRain,
+    HeavyFreezingRain,
+    LightSnow,
+    ModerateSnow,
+    HeavySnow,
+    SnowGrains,
+    SlightRainShowers,
+    ModerateRainShowers,
+    ViolentRainShowers,
+    SlightSnowShowers,
+    HeavySnowShowers,
+    Thunderstorm,
+    ThunderstormWithSlightHail,
+    ThunderstormWithHeavyHail,
+    Unknown
+}

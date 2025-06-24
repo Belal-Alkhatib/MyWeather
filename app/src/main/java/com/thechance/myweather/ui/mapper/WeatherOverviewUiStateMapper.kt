@@ -12,10 +12,11 @@ fun WeatherOverview.toWeatherOverviewUiState(): WeatherOverviewUiState {
         cityName = this.current.cityName,
         isDay = this.current.isDay,
         currentWeatherInfoUiState = CurrentWeatherInfoUiState(
-            temperature = WeatherValue(value = this.current.temperature.value.toInt(), this.current.temperature.unit),
-            imageCode = this.current.weatherCode,
-            highTemperature = WeatherValue(value = currentHighTemperature.value.toInt(), currentHighTemperature.unit),
-            lowTemperature = WeatherValue(value = currentLowTemperature.value.toInt(), currentLowTemperature.unit),
+            temperature = WeatherValue(value = this.current.temperature.value.toString(), this.current.temperature.unit),
+            weatherType = this.current.weatherType,
+            highTemperature = WeatherValue(value = currentHighTemperature.value.toString(), currentHighTemperature.unit),
+            lowTemperature = WeatherValue(value = currentLowTemperature.value.toString(), currentLowTemperature.unit),
+            description = this.current.weatherType
         ),
         weatherDetails = this.current.toListOfWeatherDetailItemUiState(),
         todayWeather = this.hourly.map { it.toTodayWeatherItemUiState() },
