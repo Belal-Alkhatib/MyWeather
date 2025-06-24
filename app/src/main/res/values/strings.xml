@@ -43,7 +43,7 @@
     <string name="snow_showers">Snow showers: Slight and heavy</string>
     <string name="thunderstorm">Thunderstorm: Slight or moderate</string>
     <string name="thunderstorm_hail">Thunderstorm with slight and heavy hail</string>
-    <string name="unknown_weather">Unknown weather</string>
+    <string name="unknown_weather" />
     <string name="wind">Wind</string>
     <string name="humidity">Humidity</string>
     <string name="rain">Rain</string>
@@ -52,6 +52,6 @@
     <string name="feels_like">Feels Like</string>
     <string name="empty" />
     <string name="retry">Retry</string>
-    <string name="address_access_error">Address Access Error</string>
-    <string name="unable_to_access_your_address">Unable to access your address. Please check your device settings.</string>
+    <string name="address_access_error_title">Address Access Error</string>
+    <string name="access_access_error_description">Unable to access your address. Please check your device settings.</string>
 </resources>
